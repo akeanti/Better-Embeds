@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Better Embeds">
+    <meta property="og:description" content="Use you webhook to build the best embed mesage in discord.">
+    <meta property="og:image" content="https://media.discordapp.net/attachments/1256720796660007002/1272604975876407449/Better_Embeds.png?ex=66bb953e&is=66ba43be&hm=3dc4d913622573ac85449b738d5f03fc89986a136d338e706bd69e27f9ebe659&=&format=webp&quality=lossless&width=670&height=655">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#7289da">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>Better Embeds</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c2f33;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: auto;
+            scrollbar-color: #000 #2c2f33;
+            scrollbar-width: thin;
+        }
+
+        body.dark-mode {
+            background-color: #1e1e1e;
+            color: #ddd;
+            scrollbar-color: #555 #1e1e1e;
+        }
+
+        body::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: #2c2f33;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: #000;
+            border-radius: 6px;
+        }
+
+        body::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .navbar {
+            background-color: #23272a;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            width: 99%;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar .logo {
+            margin-left: 15px;
+        }
+
+        .navbar .logo img {
+            height: 40px;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 5px;
+        }
+
+        .navbar a:hover {
+            background-color: #5b6eae;
+            border-radius: 5px;
+        }
+
+        .theme-toggle {
+            background-color: #2c2f33;
+            color: #fff;
+            border: 2px solid #5b6eae;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
+        .login-button {
+            background-color: #7289da;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .login-button:hover {
+            background-color: #5b6eae;
+        }
+
+        .container {
+            background-color: #23272a;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            margin: 80px auto 20px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input, textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #2c2f33;
+            color: #fff;
+            margin: 0 auto;
+        }
+
+        input[type="color"] {
+            padding: 0;
+            height: 40px;
+        }
+
+        button {
+            background-color: #7289da;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #5b6eae;
+        }
+
+        .embed-preview {
+            background-color: #2f3136;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            word-wrap: break-word;
+        }
+
+        .field-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .field-container button {
+            padding: 5px;
+            margin-top: -8px;
+        }
+
+        .footer {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .embed-preview img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center horizontally */
+    gap: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <div class="navbar">
+        <div class="logo">
+            <img src="better.png" alt="Logo">
+        </div>
+        <div class="nav-links">
+            <a href="#" class="theme-toggle" id="theme-toggle">Toggle Theme</a>
+            <a href="#" class="login-button" id="login-button">Login with Discord</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Better Embeds</h2>
+        <form id="embedForm">
+            <input type="text" id="webhookUrl" placeholder="Webhook URL" required>
+            <input type="text" id="username" placeholder="Custom Username">
+            <input type="text" id="avatarUrl" placeholder="Custom Avatar URL">
+            <input type="text" id="message" placeholder="Normal Message">
+            <input type="text" id="title" placeholder="Embed Title">
+            <textarea id="description" placeholder="Embed Description"></textarea>
+            <input type="text" id="thumbnail" placeholder="Thumbnail URL">
+            <input type="text" id="image" placeholder="Embed Image URL">
+            <input type="text" id="footerUrl" placeholder="Footer Image URL">
+            <input type="text" id="footer" placeholder="Embed Footer">
+            <input type="color" id="color" value="#7289da">
+            <button type="button" id="add-field">Add Field</button>
+            <div id="fields-container"></div>
+            <div class="checkbox-container">
+                <label><input type="checkbox" id="timestamp"> Add Timestamp</label>
+            </div>
+            <button type="submit">Send Embed</button>
+        </form>
+
+        <div class="embed-preview" id="embed-preview">
+            <!-- Embed preview content will be dynamically generated here -->
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": true,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 0.8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+
+        // Theme toggle
+        const toggleButton = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        toggleButton.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+        });
+
+        // Form field real-time preview
+        const form = document.getElementById('embedForm');
+        const previewDiv = document.getElementById('embed-preview');
+
+        function updatePreview() {
+            const username = document.getElementById('username').value;
+            const avatarUrl = document.getElementById('avatarUrl').value;
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const thumbnail = document.getElementById('thumbnail').value;
+            const image = document.getElementById('image').value;
+            const footerUrl = document.getElementById('footerUrl').value;
+            const footer = document.getElementById('footer').value;
+            const color = document.getElementById('color').value;
+            const timestampChecked = document.getElementById('timestamp').checked;
+            const message = document.getElementById('message').value;
+
+            let fieldsHtml = '';
+            document.querySelectorAll('.field-container').forEach((container) => {
+                const fieldName = container.querySelector('.field-name').value;
+                const fieldValue = container.querySelector('.field-value').value;
+                if (fieldName && fieldValue) {
+                    fieldsHtml += `<div><strong>${fieldName}</strong>: ${fieldValue}</div>`;
+                }
+            });
+
+            previewDiv.innerHTML = `
+                ${message ? `<p>${message}</p>` : ''}
+                <div style="border: 2px solid ${color}; padding: 10px; border-radius: 5px; background-color: #36393f;">
+                    ${username ? `<div style="display: flex; align-items: center;"><img src="${avatarUrl}" style="width: 40px; height: 40px; border-radius: 50%;" alt="Avatar"/> <strong>${username}</strong></div>` : ''}
+                    ${title ? `<h3>${title}</h3>` : ''}
+                    ${description ? `<p>${description}</p>` : ''}
+                    ${thumbnail ? `<img src="${thumbnail}" style="max-width: 100%; border-radius: 5px;" alt="Thumbnail"/>` : ''}
+                    ${image ? `<img src="${image}" style="max-width: 100%; border-radius: 5px;" alt="Image"/>` : ''}
+                    ${footer ? `<div style="margin-top: 10px; display: flex; align-items: center;"><img src="${footerUrl}" style="width: 20px; height: 20px; margin-right: 5px;" alt="Footer Icon"/> ${footer}</div>` : ''}
+                    ${fieldsHtml ? `<div style="margin-top: 10px;">${fieldsHtml}</div>` : ''}
+                    ${timestampChecked ? `<div style="margin-top: 10px;">Timestamp: ${new Date().toLocaleString()}</div>` : ''}
+                </div>
+            `;
+        }
+
+        // Add event listeners to form inputs
+        document.querySelectorAll('#embedForm input, #embedForm textarea').forEach(input => {
+            input.addEventListener('input', updatePreview);
+        });
+
+        // Add field functionality
+        document.getElementById('add-field').addEventListener('click', () => {
+            const container = document.getElementById('fields-container');
+            const fieldHtml = `
+                <div class="field-container">
+                    <input type="text" class="field-name" placeholder="Field Name">
+                    <input type="text" class="field-value" placeholder="Field Value">
+                    <button type="button" class="remove-field">Remove</button>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', fieldHtml);
+
+            // Add event listener to remove button
+            container.querySelectorAll('.remove-field').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.target.parentElement.remove();
+                    updatePreview();
+                });
+            });
+
+            updatePreview();
+        });
+
+        // Handle form submission
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const webhookUrl = document.getElementById('webhookUrl').value;
+            const username = document.getElementById('username').value;
+            const avatarUrl = document.getElementById('avatarUrl').value;
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const thumbnail = document.getElementById('thumbnail').value;
+            const image = document.getElementById('image').value;
+            const footerUrl = document.getElementById('footerUrl').value;
+            const footer = document.getElementById('footer').value;
+            const color = document.getElementById('color').value;
+            const timestampChecked = document.getElementById('timestamp').checked;
+            const message = document.getElementById('message').value;
+
+            const fields = Array.from(document.querySelectorAll('.field-container')).map(container => {
+                const fieldName = container.querySelector('.field-name').value;
+                const fieldValue = container.querySelector('.field-value').value;
+                return { name: fieldName, value: fieldValue };
+            });
+
+            const payload = {
+                username,
+                avatar_url: avatarUrl,
+                embeds: [{
+                    title,
+                    description,
+                    thumbnail: { url: thumbnail },
+                    image: { url: image },
+                    footer: {
+                        text: footer,
+                        icon_url: footerUrl
+                    },
+                    color: parseInt(color.replace('#', ''), 16),
+                    timestamp: timestampChecked ? new Date().toISOString() : null,
+                    fields
+                }],
+                content: message // Add the normal message to the payload
+            };
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    alert('Embed sent successfully!');
+                } else {
+                    alert('Failed to send embed.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred.');
+            }
+        });
+
+        // Initial preview update
+        updatePreview();
+    </script>
+</body>
+</html>
