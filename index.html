@@ -191,37 +191,42 @@
             gap: 10px;
         }
 
-        .vertical-menu {
-            display: none;
+        /* Vertical menu styles */
+        #vertical-menu {
             position: fixed;
-            top: 0;
-            left: 0;
-            background-color: #23272a;
+            top: 60px;
+            left: -250px;
             width: 250px;
             height: 100%;
-            padding-top: 64px;
-            z-index: 1; /* Ensure it does not overlap the navbar */
-            border-right: 2px solid #5b6eae;
-            transition: transform 0.3s ease;
-            transform: translateX(-100%);
+            background-color: #23272a;
+            overflow: hidden;
+            transition: left 0.3s ease;
+            z-index: 3;
         }
 
-        .vertical-menu.show-menu {
+        #vertical-menu.show-menu {
+            left: 0;
+        }
+
+        #vertical-menu a {
             display: block;
-            transform: translateX(0);
-        }
-
-        .vertical-menu a {
             color: #fff;
-            text-decoration: none;
-            display: block;
             padding: 10px;
-            margin: 0;
+            text-decoration: none;
+            margin: 10px 0;
+            text-align: center;
         }
 
-        .vertical-menu a:hover {
+        #vertical-menu a:hover {
             background-color: #5b6eae;
+            border-radius: 5px;
         }
+
+        .footer {
+            margin-top: 10px;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
@@ -237,11 +242,11 @@
         </div>
     </div>
 
-    <div class="vertical-menu" id="vertical-menu">
-        <a href="#">Home</a>
-        <a href="#">Features</a>
-        <a href="#">Contact</a>
-        <!-- Add more links as needed -->
+    <!-- Vertical menu -->
+    <div id="vertical-menu">
+        <a href="home.html">Home</a>
+        <a href="features.html">Features</a>
+        <a href="https://akeanti.github.io/contact.html">Contacts</a>
     </div>
 
     <div class="container">
@@ -270,7 +275,9 @@
             <!-- Embed preview content will be dynamically generated here -->
         </div>
     </div>
-
+        <div class="footer">
+            <p>&copy; 2024 Better Embeds. All rights reserved.</p>
+        </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <script>
         // Initialize particles.js
@@ -390,6 +397,12 @@
         logo.addEventListener('click', () => {
             verticalMenu.classList.toggle('show-menu');
         });
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!verticalMenu.contains(event.target) && !logo.contains(event.target)) {
+                verticalMenu.classList.remove('show-menu');
+            }
+        });
 
         // Form field real-time preview
         const embedForm = document.getElementById('embedForm');
@@ -409,7 +422,7 @@
             const footerUrl = document.getElementById('footerUrl').value;
             const color = document.getElementById('color').value;
             const timestamp = document.getElementById('timestamp').checked;
-            
+
             embedPreview.innerHTML = `
                 <div style="background-color: ${color}; padding: 10px; border-radius: 5px;">
                     <h3>${title}</h3>
@@ -440,6 +453,7 @@
                 fieldsContainer.removeChild(fieldDiv);
             });
         });
+
 
         // Initial preview update
         updatePreview();

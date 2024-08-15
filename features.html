@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="Discord Silicon Valley Studios">
-    <meta property="og:description" content="Crafting the best Discord Utility Tools for a better community experience.">
-    <meta property="og:image" content="https://yourimageurl.com/og-image.png">
+    <meta property="og:title" content="Better Embeds - Features">
+    <meta property="og:description" content="Explore the interactive features of Better Embeds.">
+    <meta property="og:image" content="https://media.discordapp.net/attachments/1256720796660007002/1272604975876407449/Better_Embeds.png?ex=66bb953e&is=66ba43be&hm=3dc4d913622573ac85449b738d5f03fc89986a136d338e706bd69e27f9ebe659&=&format=webp&quality=lossless&width=670&height=655">
     <meta name="theme-color" content="#7289da">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <title>Discord Silicon Valley Studios</title>
+    <title>Better Embeds - Features</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.css">
     <style>
-        /* General styles from your provided code */
         body {
             font-family: Arial, sans-serif;
             background-color: #2c2f33;
@@ -113,88 +112,6 @@
             background-color: #5b6eae;
         }
 
-        .hero-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 60vh;
-            text-align: center;
-            background-color: #23272a;
-            padding: 50px;
-            border-radius: 10px;
-            margin: 100px auto 20px auto;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero-section h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-
-        .hero-section p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            max-width: 800px;
-        }
-
-        .hero-section .cta-button {
-            background-color: #7289da;
-            color: #fff;
-            padding: 15px 25px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            margin-top: 20px;
-        }
-
-        .hero-section .cta-button:hover {
-            background-color: #5b6eae;
-        }
-
-        .services-section {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin: 40px auto;
-            max-width: 1200px;
-        }
-
-        .service {
-            background-color: #2f3136;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            flex: 1;
-            min-width: 300px;
-            text-align: center;
-        }
-
-        .service h3 {
-            font-size: 1.8em;
-            margin-bottom: 15px;
-        }
-
-        .service p {
-            font-size: 1em;
-            line-height: 1.6;
-        }
-
-        .service img {
-            max-width: 100%;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #23272a;
-            border-top: 1px solid #5b6eae;
-            margin-top: 40px;
-        }
-
         /* Vertical menu styles */
         #vertical-menu {
             position: fixed;
@@ -225,6 +142,41 @@
             background-color: #5b6eae;
             border-radius: 5px;
         }
+
+        .features-container {
+            margin: 80px auto 20px auto;
+            padding: 20px;
+            background-color: #23272a;
+            border-radius: 10px;
+            max-width: 800px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature {
+            background-color: #2f3136;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .feature:hover {
+            transform: scale(1.05);
+            background-color: #5b6eae;
+        }
+
+        .feature h3 {
+            margin: 0 0 10px 0;
+        }
+
+        .feature p {
+            margin: 0;
+        }
+
+        .footer {
+            margin-top: 10px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -243,33 +195,36 @@
     <!-- Vertical menu -->
     <div id="vertical-menu">
         <a href="home.html">Home</a>
-        <a href="#features.html">Features</a>
+        <a href="features.html">Features</a>
         <a href="https://akeanti.github.io/contact.html">Contacts</a>
     </div>
 
-    <div class="hero-section">
-        <div>
-            <h1>Welcome to Discord Silicon Valley Studios</h1>
-            <p>We are dedicated to creating the best Discord Utility Tools to enhance your community experience. Our tools are designed to be powerful, easy to use, and completely free.</p>
-            <button class="cta-button" onclick="window.location.href='index.html'">Explore Our Tools</button>
-        </div>
-    </div>
+    <div class="features-container">
+        <h2>Features of Better Embeds</h2>
 
-    <div class="services-section">
-        <div class="service">
-            <img src="better.png" alt="Service 1">
-            <h3>Tool 1</h3>
-            <p>Description of Tool 1 and how it helps Discord users manage their communities efficiently.</p>
+        <div class="feature">
+            <h3>Custom Webhook Integration</h3>
+            <p>Easily integrate your custom webhook to send dynamic embeds directly from your server.</p>
         </div>
-        <div class="service">
-            <img src="service-image-2.png" alt="Service 2">
-            <h3>Tool 2</h3>
-            <p>Description of Tool 2 and its unique features that make it stand out in the Discord community.</p>
+
+        <div class="feature">
+            <h3>Real-time Embed Preview</h3>
+            <p>Preview your embed messages in real-time as you customize titles, descriptions, and images.</p>
         </div>
-        <div class="service">
-            <img src="service-image-3.png" alt="Service 3">
-            <h3>Tool 3</h3>
-            <p>Overview of Tool 3, explaining how it simplifies complex tasks and enhances the user experience.</p>
+
+        <div class="feature">
+            <h3>Advanced Field Management</h3>
+            <p>Add and remove fields dynamically to create rich and informative embed messages.</p>
+        </div>
+
+        <div class="feature">
+            <h3>Theme Toggle</h3>
+            <p>Switch between light and dark modes to suit your preferences while building embeds.</p>
+        </div>
+
+        <div class="feature">
+            <h3>Interactive Background</h3>
+            <p>Enjoy a responsive, particle-based background that adds a touch of elegance to your experience.</p>
         </div>
     </div>
 
@@ -279,7 +234,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Particles.js configuration
+        // Initialize particles.js
         particlesJS('particles-js', {
             "particles": {
                 "number": {
@@ -297,9 +252,6 @@
                     "stroke": {
                         "width": 0,
                         "color": "#000000"
-                    },
-                    "polygon": {
-                        "nb_sides": 5
                     }
                 },
                 "opacity": {
@@ -368,7 +320,7 @@
                         "distance": 400,
                         "size": 40,
                         "duration": 2,
-                        "opacity": 0.8,
+                        "opacity": 8,
                         "speed": 3
                     },
                     "repulse": {
@@ -386,17 +338,10 @@
             "retina_detect": true
         });
 
-        // Toggle theme script
-        const toggleTheme = document.getElementById('theme-toggle');
-        toggleTheme.addEventListener('click', () => {
+        // Toggle theme
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        themeToggleBtn.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
-        });
-
-        // Toggle vertical menu script
-        const logo = document.getElementById('logo');
-        const verticalMenu = document.getElementById('vertical-menu');
-        logo.addEventListener('click', () => {
-            verticalMenu.classList.toggle('show-menu');
         });
 
         // Close menu when clicking outside
@@ -404,6 +349,13 @@
             if (!verticalMenu.contains(event.target) && !logo.contains(event.target)) {
                 verticalMenu.classList.remove('show-menu');
             }
+        });
+
+        // Toggle vertical menu
+        const logo = document.getElementById('logo');
+        const verticalMenu = document.getElementById('vertical-menu');
+        logo.addEventListener('click', () => {
+            verticalMenu.classList.toggle('show-menu');
         });
     </script>
 </body>
