@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:title" content="Better Embeds">
     <meta property="og:description" content="Use your webhook to build the best embed message in Discord.">
-    <meta property="og:image" content="https://media.discordapp.net/attachments/1256720796660007002/1272604975876407449/Better_Embeds.png?ex=66bb953e&is=66ba43be&hm=3dc4d913622573ac85449b738d5f03fc89986a136d338e706bd69e27f9ebe659&=&format=webp&quality=lossless&width=670&height=655">
+    <meta property="og:image"
+        content="https://media.discordapp.net/attachments/1256720796660007002/1272604975876407449/Better_Embeds.png?ex=66bb953e&is=66ba43be&hm=3dc4d913622573ac85449b738d5f03fc89986a136d338e706bd69e27f9ebe659&=&format=webp&quality=lossless&width=670&height=655">
     <meta name="theme-color" content="#7289da">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <title>Better Embeds</title>
@@ -127,7 +129,8 @@
             gap: 10px;
         }
 
-        input, textarea {
+        input,
+        textarea {
             width: calc(100% - 20px);
             padding: 10px;
             border-radius: 5px;
@@ -156,12 +159,77 @@
         }
 
         .embed-preview {
-            background-color: #2f3136;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            word-wrap: break-word;
-        }
+    background-color: #36393f;
+    border-left: 5px solid #7289da; /* Color for embed border */
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 20px;
+    word-wrap: break-word;
+    color: #dcddde;
+    font-size: 14px;
+}
+
+.embed-preview-header {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.embed-preview-avatar {
+    margin-right: 10px;
+}
+
+.embed-preview-avatar img {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.embed-preview-content {
+    flex: 1;
+}
+
+.embed-preview-title {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.embed-preview-title h3 {
+    margin: 0;
+    color: #ffffff;
+}
+
+.embed-preview-title span {
+    color: #b9bbbe;
+    font-size: 12px;
+}
+
+.embed-preview-body {
+    margin-bottom: 10px;
+}
+
+.embed-preview-body p {
+    margin: 0;
+}
+
+.embed-preview-image img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.embed-preview-footer {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    color: #b9bbbe;
+}
+
+.embed-preview-footer img {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
 
         .field-container {
             display: flex;
@@ -221,14 +289,9 @@
             background-color: #5b6eae;
             border-radius: 5px;
         }
-
-        .footer {
-            margin-top: 10px;
-            text-align: center;
-        }
-
     </style>
 </head>
+
 <body>
     <div id="particles-js"></div>
 
@@ -272,191 +335,288 @@
         </form>
 
         <div class="embed-preview" id="embed-preview">
-            <!-- Embed preview content will be dynamically generated here -->
-        </div>
+            <div class="embed-preview-header">
+                <div class="embed-preview-avatar">
+                    <img id="preview-avatar" src="" alt=" ">
+                </div>
+                <div class="embed-preview-content">
+                    <div class="embed-preview-title">
+                        <h3 id="preview-title"></h3>
+                        <span id="preview-username"></span>
+                    </div>
+                    <div class="embed-preview-body">
+                        <p id="preview-description"></p>
+                    </div>
+                    <div class="embed-preview-image">
+                        <img id="preview-image" src="" alt=" ">
+                    </div>
+                </div>
+            </div>
+            <div class="embed-preview-footer">
+                <img id="preview-footer-image" src="" alt=" ">
+                <p id="preview-footer"></p>
+            </div>
+        </div>        
     </div>
-        <div class="footer">
-            <p>&copy; 2024 Better Embeds. All rights reserved.</p>
-        </div>
+    <div class="footer">
+        <p>&copy; 2024 Better Embeds. All rights reserved.</p>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Initialize particles.js
-        particlesJS('particles-js', {
-            "particles": {
-                "number": {
-                    "value": 80,
-                    "density": {
-                        "enable": true,
-                        "value_area": 800
-                    }
-                },
-                "color": {
-                    "value": "#ffffff"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    }
-                },
-                "opacity": {
-                    "value": 0.5,
-                    "random": false,
-                    "anim": {
-                        "enable": false,
-                        "speed": 1,
-                        "opacity_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": {
-                        "enable": false,
-                        "speed": 40,
-                        "size_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#ffffff",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 6,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false,
-                    "attract": {
-                        "enable": false,
-                        "rotateX": 600,
-                        "rotateY": 1200
-                    }
-                }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "repulse"
-                    },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push"
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "grab": {
-                        "distance": 400,
-                        "line_linked": {
-                            "opacity": 1
-                        }
-                    },
-                    "bubble": {
-                        "distance": 250,
-                        "size": 0,
-                        "duration": 2,
-                        "opacity": 0.8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 400,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
-                    }
-                }
-            },
-            "retina_detect": true
-        });
-
-        // Theme toggle
-        const themeToggle = document.getElementById('theme-toggle');
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-        });
-
-        // Vertical menu toggle
-        const logo = document.getElementById('logo');
-        const verticalMenu = document.getElementById('vertical-menu');
-
-        logo.addEventListener('click', () => {
-            verticalMenu.classList.toggle('show-menu');
-        });
-        // Close menu when clicking outside
-        document.addEventListener('click', (event) => {
-            if (!verticalMenu.contains(event.target) && !logo.contains(event.target)) {
-                verticalMenu.classList.remove('show-menu');
+// Initialize particles.js
+particlesJS('particles-js', {
+    "particles": {
+        "number": {
+            "value": 80,
+            "density": {
+                "enable": true,
+                "value_area": 800
             }
-        });
-
-        // Form field real-time preview
-        const embedForm = document.getElementById('embedForm');
-        const embedPreview = document.getElementById('embed-preview');
-
-        embedForm.addEventListener('input', updatePreview);
-        embedForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Embed sent!');
-        });
-
-        function updatePreview() {
-            const title = document.getElementById('title').value;
-            const description = document.getElementById('description').value;
-            const image = document.getElementById('image').value;
-            const footer = document.getElementById('footer').value;
-            const footerUrl = document.getElementById('footerUrl').value;
-            const color = document.getElementById('color').value;
-            const timestamp = document.getElementById('timestamp').checked;
-
-            embedPreview.innerHTML = `
-                <div style="background-color: ${color}; padding: 10px; border-radius: 5px;">
-                    <h3>${title}</h3>
-                    <p>${description}</p>
-                    ${image ? `<img src="${image}" alt="Embed Image">` : ''}
-                    ${footer ? `<p>${footer}</p>` : ''}
-                    ${footerUrl ? `<img src="${footerUrl}" alt="Footer Image" style="width: 100%; border-radius: 5px;">` : ''}
-                    ${timestamp ? `<p style="font-size: small; color: #aaa;">${new Date().toLocaleString()}</p>` : ''}
-                </div>
-            `;
+        },
+        "color": {
+            "value": "#ffffff"
+        },
+        "shape": {
+            "type": "circle",
+            "stroke": {
+                "width": 0,
+                "color": "#000000"
+            },
+            "polygon": {
+                "nb_sides": 5
+            }
+        },
+        "opacity": {
+            "value": 0.5,
+            "random": false,
+            "anim": {
+                "enable": false,
+                "speed": 1,
+                "opacity_min": 0.1,
+                "sync": false
+            }
+        },
+        "size": {
+            "value": 5,
+            "random": true,
+            "anim": {
+                "enable": false,
+                "speed": 40,
+                "size_min": 0.1,
+                "sync": false
+            }
+        },
+        "line_linked": {
+            "enable": true,
+            "distance": 150,
+            "color": "#ffffff",
+            "opacity": 0.4,
+            "width": 1
+        },
+        "move": {
+            "enable": true,
+            "speed": 6,
+            "direction": "none",
+            "random": false,
+            "straight": false,
+            "out_mode": "out",
+            "attract": {
+                "enable": false,
+                "rotateX": 600,
+                "rotateY": 1200
+            }
         }
+    },
+    "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+            "onhover": {
+                "enable": true,
+                "mode": "repulse"
+            },
+            "onclick": {
+                "enable": true,
+                "mode": "push"
+            },
+            "resize": true
+        },
+        "modes": {
+            "grab": {
+                "distance": 400,
+                "line_linked": {
+                    "opacity": 1
+                }
+            },
+            "bubble": {
+                "distance": 400,
+                "size": 40,
+                "duration": 2,
+                "opacity": 8,
+                "speed": 3
+            },
+            "repulse": {
+                "distance": 200
+            },
+            "push": {
+                "particles_nb": 4
+            },
+            "remove": {
+                "particles_nb": 2
+            }
+        }
+    },
+    "retina_detect": true,
+});
 
-        // Add field functionality
-        const addFieldButton = document.getElementById('add-field');
-        const fieldsContainer = document.getElementById('fields-container');
+// Toggle theme functionality
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
 
-        addFieldButton.addEventListener('click', () => {
-            const fieldDiv = document.createElement('div');
-            fieldDiv.classList.add('field-container');
-            fieldDiv.innerHTML = `
-                <input type="text" placeholder="Field Title">
-                <textarea placeholder="Field Content"></textarea>
-                <button type="button" class="remove-field">Remove</button>
-            `;
-            fieldsContainer.appendChild(fieldDiv);
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+});
 
-            fieldDiv.querySelector('.remove-field').addEventListener('click', () => {
-                fieldsContainer.removeChild(fieldDiv);
+// Toggle vertical menu visibility
+const verticalMenu = document.getElementById('vertical-menu');
+const logo = document.getElementById('logo');
+
+logo.addEventListener('click', () => {
+    verticalMenu.classList.toggle('show-menu');
+});
+
+// Add new fields functionality
+const addFieldButton = document.getElementById('add-field');
+const fieldsContainer = document.getElementById('fields-container');
+
+addFieldButton.addEventListener('click', () => {
+    const fieldContainer = document.createElement('div');
+    fieldContainer.classList.add('field-container');
+    fieldContainer.innerHTML = `
+        <input type="text" name="fieldName" placeholder="Field Name">
+        <input type="text" name="fieldValue" placeholder="Field Value">
+        <button type="button" class="remove-field">Remove</button>
+    `;
+    fieldsContainer.appendChild(fieldContainer);
+
+    // Add remove button functionality
+    fieldContainer.querySelector('.remove-field').addEventListener('click', () => {
+        fieldContainer.remove();
+    });
+});
+
+// Function to update embed preview
+function updatePreview() {
+    const username = document.getElementById('username').value;
+    const avatarUrl = document.getElementById('avatarUrl').value;
+    const message = document.getElementById('message').value;
+    const title = document.getElementById('title').value;
+    const description = document.getElementById('description').value;
+    const thumbnail = document.getElementById('thumbnail').value;
+    const image = document.getElementById('image').value;
+    const footerUrl = document.getElementById('footerUrl').value;
+    const footer = document.getElementById('footer').value;
+    const color = document.getElementById('color').value;
+    const timestamp = document.getElementById('timestamp').checked;
+
+    let embedHtml = `
+        <div style="color: ${color}; border: 1px solid ${color}; padding: 10px; border-radius: 10px;">
+            ${title ? `<h3>${title}</h3>` : ''}
+            ${description ? `<p>${description}</p>` : ''}
+            ${image ? `<img src="${image}" alt="Embed Image" style="max-width: 100%; border-radius: 5px;">` : ''}
+            ${thumbnail ? `<img src="${thumbnail}" alt="Thumbnail" style="max-width: 100%; border-radius: 5px;">` : ''}
+            <footer style="color: ${color}; display: flex; align-items: center;">
+                ${footerUrl ? `<img src="${footerUrl}" alt="Footer Image" style="height: 16px; width: 16px; border-radius: 50%; margin-right: 5px;">` : ''}
+                ${footer ? `<span>${footer}</span>` : ''}
+            </footer>
+        </div>
+    `;
+
+    document.getElementById('embed-preview').innerHTML = embedHtml;
+}
+
+
+// Update preview when form values change
+document.querySelectorAll('#embedForm input, #embedForm textarea').forEach(element => {
+    element.addEventListener('input', updatePreview);
+});
+
+// Form submission to send the embed
+const embedForm = document.getElementById('embedForm');
+embedForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const webhookUrl = document.getElementById('webhookUrl').value;
+    const username = document.getElementById('username').value;
+    const avatarUrl = document.getElementById('avatarUrl').value;
+    const message = document.getElementById('message').value;
+    const title = document.getElementById('title').value;
+    const description = document.getElementById('description').value;
+    const thumbnail = document.getElementById('thumbnail').value;
+    const image = document.getElementById('image').value;
+    const footer = document.getElementById('footer').value;
+    const footerUrl = document.getElementById('footerUrl').value;
+    const color = document.getElementById('color').value.replace('#', '');
+    const timestamp = document.getElementById('timestamp').checked;
+
+    const fields = [];
+    fieldsContainer.querySelectorAll('.field-container').forEach(container => {
+        const fieldName = container.querySelector('input[name="fieldName"]').value;
+        const fieldValue = container.querySelector('input[name="fieldValue"]').value;
+        if (fieldName && fieldValue) {
+            fields.push({
+                name: fieldName,
+                value: fieldValue,
+                inline: false // Modify this if you want inline fields
             });
-        });
+        }
+    });
 
+    const embed = {
+        title: title,
+        description: description,
+        color: parseInt(color, 16),
+        fields: fields,
+        timestamp: timestamp ? new Date().toISOString() : null,
+        footer: footer ? {
+            text: footer,
+            icon_url: footerUrl
+        } : null,
+        image: image ? {
+            url: image
+        } : null,
+        thumbnail: thumbnail ? {
+            url: thumbnail
+        } : null
+    };
 
-        // Initial preview update
-        updatePreview();
+    const payload = {
+        username: username || 'Webhook',
+        avatar_url: avatarUrl,
+        content: message,
+        embeds: [embed]
+    };
+
+    fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Embed sent!');
+        } else {
+            alert('Failed to send embed.');
+        }
+    })
+    .catch(error => {
+        console.error('Error sending embed:', error);
+        alert('Error sending embed.');
+    });
+});
+
     </script>
 </body>
+
 </html>
